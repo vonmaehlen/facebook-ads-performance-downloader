@@ -13,6 +13,11 @@ def first_date() -> str:
     return '2015-01-01'
 
 
+def download_today() -> bool:
+    """Whether we would like to download today's data or make yesterday the last day"""
+    return False
+
+
 def app_id() -> str:
     """The app id obtained from the app's settings in facebook for developers
 

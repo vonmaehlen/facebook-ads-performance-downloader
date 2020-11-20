@@ -124,7 +124,13 @@ def download_ad_performance(ad_accounts: [adaccount.AdAccount]):
         # calculate yesterday based on the timezone of the ad account
         ad_account_timezone = datetime.timezone(datetime.timedelta(
             hours=float(ad_account['timezone_offset_hours_utc'])))
-        last_date = datetime.datetime.now(ad_account_timezone).date() - datetime.timedelta(days=1)
+        now = datetime.datetime.now(ad_account_timezone).date()
+
+        if config.download_today():
+            last_date = now
+        else:
+            last_date = now - datetime.timedelta(days=1)
+
         first_date = _first_download_date_of_ad_account(ad_account)
 
         # check for ad performance db on the first day the account
@@ -683,8 +689,8 @@ def _process_job(args: ThreadArgs, job: JobQueueItem, api: FacebookAdsApi) -> No
 
         _log(logging.info, args.logging_mutex, ['finished download Facebook ad performance of {job}'
                                                ' in {time}s - attempt #{attempt}'.format(job=job_info_str,
-                                                                                         time=round(end - start, 2),
-                                                                                         attempt=job.try_count)])
+                                                                                          time=round(end - start, 2),
+                                                                                          attempt=job.try_count)])
 
         with args.state_changed_cv:
             args.jobs_left -= 1
