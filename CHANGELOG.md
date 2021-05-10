@@ -1,9 +1,8 @@
 # Changelog
 
-## 3.2.0 (2020-11-08)
+## 3.2.0 (2021-04-19)
 
-- Switch to current Facebook API version (8.0.5)
-- Added PyCharm config directory to .gitignore
+- Switch to current Facebook API version (10.0.0)
 
 ## 3.1.0 (2020-04-06)
 
